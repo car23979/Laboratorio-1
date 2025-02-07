@@ -25,13 +25,13 @@
  <LABELS>
   <SETUP><FILE>C:\Users\Admin\Documents\GitHub\Laboratorio-1\Laboratorio-1\main.asm</FILE><LINE>20</LINE></SETUP>
   <MAIN><FILE>C:\Users\Admin\Documents\GitHub\Laboratorio-1\Laboratorio-1\main.asm</FILE><LINE>38</LINE></MAIN>
-  <DELAY><FILE>C:\Users\Admin\Documents\GitHub\Laboratorio-1\Laboratorio-1\main.asm</FILE><LINE>82</LINE></DELAY>
-  <INCREMENT><FILE>C:\Users\Admin\Documents\GitHub\Laboratorio-1\Laboratorio-1\main.asm</FILE><LINE>62</LINE></INCREMENT>
-  <DECREMENT><FILE>C:\Users\Admin\Documents\GitHub\Laboratorio-1\Laboratorio-1\main.asm</FILE><LINE>72</LINE></DECREMENT>
-  <NO_CARRY><FILE>C:\Users\Admin\Documents\GitHub\Laboratorio-1\Laboratorio-1\main.asm</FILE><LINE>67</LINE></NO_CARRY>
-  <NO_BORROW><FILE>C:\Users\Admin\Documents\GitHub\Laboratorio-1\Laboratorio-1\main.asm</FILE><LINE>77</LINE></NO_BORROW>
-  <SUB_DELAY1><FILE>C:\Users\Admin\Documents\GitHub\Laboratorio-1\Laboratorio-1\main.asm</FILE><LINE>84</LINE></SUB_DELAY1>
-  <SUB_DELAY2><FILE>C:\Users\Admin\Documents\GitHub\Laboratorio-1\Laboratorio-1\main.asm</FILE><LINE>89</LINE></SUB_DELAY2>
-  <SUB_DELAY3><FILE>C:\Users\Admin\Documents\GitHub\Laboratorio-1\Laboratorio-1\main.asm</FILE><LINE>94</LINE></SUB_DELAY3>
+  <DELAY><FILE>C:\Users\Admin\Documents\GitHub\Laboratorio-1\Laboratorio-1\main.asm</FILE><LINE>81</LINE></DELAY>
+  <INCREMENT><FILE>C:\Users\Admin\Documents\GitHub\Laboratorio-1\Laboratorio-1\main.asm</FILE><LINE>59</LINE></INCREMENT>
+  <DECREMENT><FILE>C:\Users\Admin\Documents\GitHub\Laboratorio-1\Laboratorio-1\main.asm</FILE><LINE>70</LINE></DECREMENT>
+  <NO_CARRY><FILE>C:\Users\Admin\Documents\GitHub\Laboratorio-1\Laboratorio-1\main.asm</FILE><LINE>66</LINE></NO_CARRY>
+  <NO_BORROW><FILE>C:\Users\Admin\Documents\GitHub\Laboratorio-1\Laboratorio-1\main.asm</FILE><LINE>76</LINE></NO_BORROW>
+  <SUB_DELAY1><FILE>C:\Users\Admin\Documents\GitHub\Laboratorio-1\Laboratorio-1\main.asm</FILE><LINE>83</LINE></SUB_DELAY1>
+  <SUB_DELAY2><FILE>C:\Users\Admin\Documents\GitHub\Laboratorio-1\Laboratorio-1\main.asm</FILE><LINE>88</LINE></SUB_DELAY2>
+  <SUB_DELAY3><FILE>C:\Users\Admin\Documents\GitHub\Laboratorio-1\Laboratorio-1\main.asm</FILE><LINE>93</LINE></SUB_DELAY3>
  </LABELS>
 </ASSEMBLER_INFO>
