@@ -53,4 +53,13 @@ MAIN:
 	RCALL DELAY		// Retardo para antirrebote
 	RJMP MAIN		// Repetir el ciclo
 
+// Subrutina para incrementar el contador
+INCREMENT:
+	INC R18			// Incrementra contador
+	BRNE NO_CARRY	// Si no hubo overflow, continuar
+	LDI	R18, 0x00	// Si hubo carry, reiniciar contador a 0
+
+NO_CARRY:
+	ANDI R18, 0x0F	// Mantener los 4 bits menos significativos
+	RET
 
