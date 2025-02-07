@@ -39,6 +39,8 @@ MAIN:
 	IN R16, PINC	// Leer estadode botones
 	CP R17, R16		// Comparar con estado previo
 	BREQ MAIN		// Si no hay cambio, vuelve a leer
+	
+	RCALL DELAY		// Retardo para antirrebote
 
 	MOV R19, R16	// Guardar copia de estado actual
 	COM R19			// Invertir bits para detectar flancos (1 -> 0)
@@ -50,7 +52,6 @@ MAIN:
 
 	MOV R17, R16	// Actualizar estado previo de botones
 	OUT PORTB, R18	// Mostrar el contador en los LEDs
-	RCALL DELAY		// Retardo para antirrebote
 	RJMP MAIN		// Repetir el ciclo
 
 // Subrutina para incrementar el contador
@@ -72,3 +73,5 @@ DECREMENT:
 NO_BORROW:
 	ANDI R18, 0x0F // Mantener los 4 bits menos significativos
 	RET
+
+// Subrutina 
