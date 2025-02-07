@@ -32,3 +32,8 @@ SETUP:
 	OUT PORTB, R16	// Todos los bits del puerto B se encuentran apagados
 
 	LDI R17, 0xFF	// Variable que guarda el estado de los botones
+	LDI R18, 0x00	// Contador
+
+// Loop Infinito
+MAIN:
+	IN R16
