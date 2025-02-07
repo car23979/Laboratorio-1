@@ -10,3 +10,6 @@
 start:
     inc r16
     rjmp start
+	rerere
+	rerere
+	rerere
