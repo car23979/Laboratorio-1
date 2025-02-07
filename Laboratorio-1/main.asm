@@ -16,4 +16,12 @@ OUT		SPL, R16
 LDI		R16, HIGH(RAMEND)
 OUT		SPL, R16
 
-//  
+// Configurar el MCU
+SETUP:
+	// Configuración de los pines de entrada y salida (DDRx, PORTX, PINx)
+	// PORTC se configura como la entrada con pull-up habilitado
+	LDI R16, 0x00
+	OUT DDRC, R16	// Se establece el puerto C como entrada
+	LDI R16, 0xFF
+	OUT PORTC, R16	// Se habilita los pull-ups en el puerto C
+
