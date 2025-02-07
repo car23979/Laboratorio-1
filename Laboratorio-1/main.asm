@@ -40,42 +40,41 @@ MAIN:
 	CP R17, R16		// Comparar con estado previo
 	BREQ MAIN		// Si no hay cambio, vuelve a leer
 	
-	RCALL DELAY		// Retardo para antirrebote
+	CALL DELAY		// Retardo para antirrebote
 	
 	IN R16, PINC	// Leer estadode botones
 	CP R17, R16		// Comparar con estado previo
 	BREQ MAIN		// Si no hay cambio, vuelve a leer
 
 	MOV R19, R16	// Guardar copia de estado actual
-	COM R19			// Invertir bits para detectar flancos (1 -> 0)
-	AND R19, R17	// Detectar transición de 1 a 0 (botón presionado)
-	SBRC R19, 2		// Si el botón de incremento (PC2) se presiono
-	CALL INCREMENT // Llamar subrutina de decremento
-	SBRC R19, 3		// Si el bóton de decremento (PC3) se presiono
+	SBRS R16, 2		// Revisar si el bit 2 no se presiono
+	CALL INCREMENT	// Llamar subrutina de incremento
+	SBRS R16, 3		// Si el bit 3 se presiono
 	CALL DECREMENT	// Llamar subrutina de decremento
 
-	MOV R17, R16	// Actualizar estado previo de botones
 	OUT PORTB, R18	// Mostrar el contador en los LEDs
 	RJMP MAIN		// Repetir el ciclo
 
 // Subrutina para incrementar el contador
 INCREMENT:
 	INC R18			// Incrementra contador
+	CPI R18, 0x10 
 	BRNE NO_CARRY	// Si no hubo overflow, continuar
 	LDI	R18, 0x00	// Si hubo carry, reiniciar contador a 0
+	RJMP MAIN
 
 NO_CARRY:
-	ANDI R18, 0x0F	// Mantener los 4 bits menos significativos
 	RET
 
 // Subrutina para decrementar el contador
 DECREMENT:
-	DEC R18			// Decrementar contador
-	CPI R18, 0xFF	// Comprobar si se generó borrow
+	CPI R18, 0x00	// Comprobar si se generó borrow
 	BRNE NO_BORROW	// Si no hubo borrow
+	LDI R18, 0x0F	// Si hubo borrow, el contador decrementa
+
 
 NO_BORROW:
-	ANDI R18, 0x0F	// Mantener los 4 bits menos significativos
+	DEC R18			// Decrementar contador
 	RET
 
 // Subrutina de retardo para antirrebote
