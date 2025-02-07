@@ -40,19 +40,22 @@ MAIN:
 	CP R17, R16		// Comparar con estado previo
 	BREQ MAIN		// Si no hay cambio, vuelve a leer
 	
+	RCALL DELAY		// Retardo para antirrebote
 	
+	IN R16, PINC	// Leer estadode botones
+	CP R17, R16		// Comparar con estado previo
+	BREQ MAIN		// Si no hay cambio, vuelve a leer
 
 	MOV R19, R16	// Guardar copia de estado actual
 	COM R19			// Invertir bits para detectar flancos (1 -> 0)
 	AND R19, R17	// Detectar transición de 1 a 0 (botón presionado)
 	SBRC R19, 2		// Si el botón de incremento (PC2) se presiono
-	RCALL INCREMENT // Llamar subrutina de decremento
+	CALL INCREMENT // Llamar subrutina de decremento
 	SBRC R19, 3		// Si el bóton de decremento (PC3) se presiono
-	RCALL DECREMENT	// Llamar subrutina de decremento
+	CALL DECREMENT	// Llamar subrutina de decremento
 
 	MOV R17, R16	// Actualizar estado previo de botones
 	OUT PORTB, R18	// Mostrar el contador en los LEDs
-	RCALL DELAY		// Retardo para antirrebote
 	RJMP MAIN		// Repetir el ciclo
 
 // Subrutina para incrementar el contador
@@ -78,8 +81,16 @@ NO_BORROW:
 // Subrutina de retardo para antirrebote
 DELAY:
 	LDI R19, 0xFF
-SUB_DELAY:
+SUB_DELAY1:
 	DEC R19
 	CPI R19, 0
-	BRNE SUB_DELAY
+	BRNE SUB_DELAY1
+SUB_DELAY2:
+	DEC R19
+	CPI R19, 0
+	BRNE SUB_DELAY2
+SUB_DELAY3:
+	DEC R19
+	CPI R19, 0
+	BRNE SUB_DELAY3
 	RET
