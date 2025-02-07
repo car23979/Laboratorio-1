@@ -25,3 +25,9 @@ SETUP:
 	LDI R16, 0xFF
 	OUT PORTC, R16	// Se habilita los pull-ups en el puerto C
 
+	// PORTB se configura como salida inicialmente apagado
+	LDI R16, 0xFF
+	OUT DDRB, R16	// Se establece el puerto B como salida
+	LDI R16, 0X00
+	OUT PORTB, R16	// Todos los bits del puerto B se encuentran apagados
+
