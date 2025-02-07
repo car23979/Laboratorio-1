@@ -63,3 +63,12 @@ NO_CARRY:
 	ANDI R18, 0x0F	// Mantener los 4 bits menos significativos
 	RET
 
+// Subrutina para decrementar el contador
+DECREMENT:
+	DEC R18			// Decrementar contador
+	CPI R18, 0xFF	// Comprobar si se generó borrow
+	BRNE NO_BORROW	// Si no hubo borrow
+
+NO_BORROW:
+	ANDI R18, 0x0F // Mantener los 4 bits menos significativos
+	RET
