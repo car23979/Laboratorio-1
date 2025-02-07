@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\Admin\Documents\GitHub\Laboratorio-1\Laboratorio-1\main.asm Fri Feb 07 11:15:39 2025
+AVRASM ver. 2.2.8  C:\Users\Admin\Documents\GitHub\Laboratorio-1\Laboratorio-1\main.asm Fri Feb 07 17:10:53 2025
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
 C:\Users\Admin\Documents\GitHub\Laboratorio-1\Laboratorio-1\main.asm(8): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\M328PDEF.inc'
@@ -1062,7 +1062,7 @@ C:\Users\Admin\Documents\GitHub\Laboratorio-1\Laboratorio-1\main.asm(8): Includi
 00000a e000                      	LDI R16, 0X00
 00000b b905                      	OUT PORTB, R16	// Todos los bits del puerto B se encuentran apagados
                                  
-00000c ef1f                      	LDI R17, 0xFF	// Variable que guarda el estado de los botones
+00000c e71f                      	LDI R17, 0x7F	// Variable que guarda el estado de los botones
 00000d e020                      	LDI R18, 0x00	// Contador incialización en 0
                                  
                                  // Loop Infinito
@@ -1071,17 +1071,17 @@ C:\Users\Admin\Documents\GitHub\Laboratorio-1\Laboratorio-1\main.asm(8): Includi
 00000f 1710                      	CP R17, R16		// Comparar con estado previo
 000010 f3e9                      	BREQ MAIN		// Si no hay cambio, vuelve a leer
                                  	
-000011 940e 002a                 	CALL DELAY		// Retardo para antirrebote
+000011 940e 0029                 	CALL DELAY		// Retardo para antirrebote
                                  	
 000013 b106                      	IN R16, PINC	// Leer estadode botones
 000014 1710                      	CP R17, R16		// Comparar con estado previo
 000015 f3c1                      	BREQ MAIN		// Si no hay cambio, vuelve a leer
                                  
-000016 2f30                      	MOV R19, R16	// Guardar copia de estado actual
-000017 ff02                      	SBRS R16, 2		// Revisar si el bit 2 no se presiono
+000016 2f10                      	MOV R17, R16	// Guardar copia de estado actual
+000017 ff00                      	SBRS R16, 0		// Revisar si el bit 2 no se presiono
 000018 940e 001f                 	CALL INCREMENT	// Llamar subrutina de incremento
-00001a ff03                      	SBRS R16, 3		// Si el bit 3 se presiono
-00001b 940e 0025                 	CALL DECREMENT	// Llamar subrutina de decremento
+00001a ff01                      	SBRS R16, 1		// Si el bit 3 se presiono
+00001b 940e 0024                 	CALL DECREMENT	// Llamar subrutina de decremento
                                  
 00001d b925                      	OUT PORTB, R18	// Mostrar el contador en los LEDs
 00001e cfef                      	RJMP MAIN		// Repetir el ciclo
@@ -1090,42 +1090,54 @@ C:\Users\Admin\Documents\GitHub\Laboratorio-1\Laboratorio-1\main.asm(8): Includi
                                  INCREMENT:
 00001f 9523                      	INC R18			// Incrementra contador
 000020 3120                      	CPI R18, 0x10 
-000021 f411                      	BRNE NO_CARRY	// Si no hubo overflow, continuar
+000021 f409                      	BRNE NO_CARRY	// Si no hubo overflow, continuar
 000022 e020                      	LDI	R18, 0x00	// Si hubo carry, reiniciar contador a 0
-000023 cfea                      	RJMP MAIN
-                                 
                                  NO_CARRY:
-000024 9508                      	RET
+000023 9508                      	RET
                                  
                                  // Subrutina para decrementar el contador
                                  DECREMENT:
-000025 3020                      	CPI R18, 0x00	// Comprobar si se generó borrow
+000024 952a                      	DEC R18			// Decrementar contador
+000025 3f2f                      	CPI R18, 0xFF	// Comprobar si se generó borrow
 000026 f409                      	BRNE NO_BORROW	// Si no hubo borrow
 000027 e02f                      	LDI R18, 0x0F	// Si hubo borrow, el contador decrementa
-                                 
-                                 
                                  NO_BORROW:
-000028 952a                      	DEC R18			// Decrementar contador
-000029 9508                      	RET
+000028 9508                      	RET
                                  
                                  // Subrutina de retardo para antirrebote
                                  DELAY:
-00002a ef3f                      	LDI R19, 0xFF
+000029 ef3f                      	LDI R19, 0xFF
                                  SUB_DELAY1:
-00002b 953a                      	DEC R19
-00002c 3030                      	CPI R19, 0
-00002d f7e9                      	BRNE SUB_DELAY1
-00002e ef3f                      	LDI R19, 0xFF
+00002a 953a                      	DEC R19
+00002b 3030                      	CPI R19, 0
+00002c f7e9                      	BRNE SUB_DELAY1
+00002d ef3f                      	LDI R19, 0xFF
                                  SUB_DELAY2:
-00002f 953a                      	DEC R19
-000030 3030                      	CPI R19, 0
-000031 f7e9                      	BRNE SUB_DELAY2
-000032 ef3f                      	LDI R19, 0xFF
+00002e 953a                      	DEC R19
+00002f 3030                      	CPI R19, 0
+000030 f7e9                      	BRNE SUB_DELAY2
+000031 ef3f                      	LDI R19, 0xFF
                                  SUB_DELAY3:
-000033 953a                      	DEC R19
-000034 3030                      	CPI R19, 0
-000035 f7e9                      	BRNE SUB_DELAY3
-000036 9508                      	RET
+000032 953a                      	DEC R19
+000033 3030                      	CPI R19, 0
+000034 f7e9                      	BRNE SUB_DELAY3
+000035 ef3f                      	LDI R19, 0xFF
+                                 SUB_DELAY4:
+000036 953a                      	DEC R19
+000037 3030                      	CPI R19, 0
+000038 f7e9                      	BRNE SUB_DELAY4
+000039 9508                      	RET
+                                 /*	LDI R19, 0xFF
+                                 SUB_DELAY5:
+                                 	DEC R19
+                                 	CPI R19, 0
+                                 	BRNE SUB_DELAY5
+                                 	LDI R19, 0xFF
+                                 SUB_DELAY6:
+                                 	DEC R19
+                                 	CPI R19, 0
+                                 	BRNE SUB_DELAY6
+                                 	RET*/
 
 
 RESOURCE USE INFORMATION
@@ -1145,7 +1157,7 @@ counted separately from r26..r31 here.
 "ATmega328P" register use summary:
 x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  19 r17:   3 r18:   8 r19:  10 r20:   0 
+r13:   0 r14:   0 r15:   0 r16:  19 r17:   4 r18:   8 r19:  12 r20:   0 
 r21:   0 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   0 r31:   0 
 Registers used: 4 out of 35 (11.4%)
@@ -1155,16 +1167,16 @@ Registers used: 4 out of 35 (11.4%)
 andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
 brcc  :   0 brcs  :   0 break :   0 breq  :   2 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :   5 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brne  :   6 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   0 call  :   3 cbi   :   0 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   2 cpc   :   0 
-cpi   :   5 cpse  :   0 dec   :   4 eor   :   0 fmul  :   0 fmuls :   0 
+cpi   :   6 cpse  :   0 dec   :   5 eor   :   0 fmul  :   0 fmuls :   0 
 fmulsu:   0 icall :   0 ijmp  :   0 in    :   2 inc   :   1 jmp   :   0 
-ld    :   0 ldd   :   0 ldi   :  13 lds   :   0 lpm   :   0 lsl   :   0 
+ld    :   0 ldd   :   0 ldi   :  14 lds   :   0 lpm   :   0 lsl   :   0 
 lsr   :   0 mov   :   1 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
 neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   7 pop   :   0 
-push  :   0 rcall :   0 ret   :   3 reti  :   0 rjmp  :   2 rol   :   0 
+push  :   0 rcall :   0 ret   :   3 reti  :   0 rjmp  :   1 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   0 sbic  :   0 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   2 sec   :   0 seh   :   0 
 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
@@ -1175,7 +1187,7 @@ Instructions used: 14 out of 113 (12.4%)
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x00006e    110      0    110   32768   0.3%
+[.cseg] 0x000000 0x000074    116      0    116   32768   0.4%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 

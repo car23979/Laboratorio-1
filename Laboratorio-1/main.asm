@@ -31,7 +31,7 @@ SETUP:
 	LDI R16, 0X00
 	OUT PORTB, R16	// Todos los bits del puerto B se encuentran apagados
 
-	LDI R17, 0xFF	// Variable que guarda el estado de los botones
+	LDI R17, 0x7F	// Variable que guarda el estado de los botones
 	LDI R18, 0x00	// Contador incialización en 0
 
 // Loop Infinito
@@ -46,10 +46,10 @@ MAIN:
 	CP R17, R16		// Comparar con estado previo
 	BREQ MAIN		// Si no hay cambio, vuelve a leer
 
-	MOV R19, R16	// Guardar copia de estado actual
-	SBRS R16, 2		// Revisar si el bit 2 no se presiono
+	MOV R17, R16	// Guardar copia de estado actual
+	SBRS R16, 0		// Revisar si el bit 2 no se presiono
 	CALL INCREMENT	// Llamar subrutina de incremento
-	SBRS R16, 3		// Si el bit 3 se presiono
+	SBRS R16, 1		// Si el bit 3 se presiono
 	CALL DECREMENT	// Llamar subrutina de decremento
 
 	OUT PORTB, R18	// Mostrar el contador en los LEDs
@@ -61,20 +61,16 @@ INCREMENT:
 	CPI R18, 0x10 
 	BRNE NO_CARRY	// Si no hubo overflow, continuar
 	LDI	R18, 0x00	// Si hubo carry, reiniciar contador a 0
-	RJMP MAIN
-
 NO_CARRY:
 	RET
 
 // Subrutina para decrementar el contador
 DECREMENT:
-	CPI R18, 0x00	// Comprobar si se generó borrow
+	DEC R18			// Decrementar contador
+	CPI R18, 0xFF	// Comprobar si se generó borrow
 	BRNE NO_BORROW	// Si no hubo borrow
 	LDI R18, 0x0F	// Si hubo borrow, el contador decrementa
-
-
 NO_BORROW:
-	DEC R18			// Decrementar contador
 	RET
 
 // Subrutina de retardo para antirrebote
@@ -94,4 +90,20 @@ SUB_DELAY3:
 	DEC R19
 	CPI R19, 0
 	BRNE SUB_DELAY3
+	LDI R19, 0xFF
+SUB_DELAY4:
+	DEC R19
+	CPI R19, 0
+	BRNE SUB_DELAY4
 	RET
+/*	LDI R19, 0xFF
+SUB_DELAY5:
+	DEC R19
+	CPI R19, 0
+	BRNE SUB_DELAY5
+	LDI R19, 0xFF
+SUB_DELAY6:
+	DEC R19
+	CPI R19, 0
+	BRNE SUB_DELAY6
+	RET*/
