@@ -31,3 +31,4 @@ SETUP:
 	LDI R16, 0X00
 	OUT PORTB, R16	// Todos los bits del puerto B se encuentran apagados
 
+	LDI R17, 0xFF	// Variable que guarda el estado de los botones
