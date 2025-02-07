@@ -1,15 +1,8 @@
-;
-; Laboratorio-1.asm
-;
-; Created: 06/02/2025 09:46:21 p. m.
-; Author : Admin
-;
-
-
-; Replace with your application code
-start:
-    inc r16
-    rjmp start
-	rerere
-	rerere
-	rerere
+/*
+* Laboratorio-1.asm
+*
+* Created: 02-Feb-25 09:46:21 PM
+* Author : David Carranza
+*/
+// Encabezado
+.include "M328PDEF.inc"
