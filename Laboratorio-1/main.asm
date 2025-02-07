@@ -71,7 +71,14 @@ DECREMENT:
 	BRNE NO_BORROW	// Si no hubo borrow
 
 NO_BORROW:
-	ANDI R18, 0x0F // Mantener los 4 bits menos significativos
+	ANDI R18, 0x0F	// Mantener los 4 bits menos significativos
 	RET
 
-// Subrutina 
+// Subrutina de retardo para antirrebote
+DELAY:
+	LDI R19, 0xFF
+SUB_DELAY:
+	DEC R19
+	CPI R19, 0
+	BRNE SUB_DELAY
+	RET
